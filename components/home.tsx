@@ -2,7 +2,7 @@
 
 import { Tab, Tabs } from "@nextui-org/react";
 import { Responsive } from "react-grid-layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Paper from "./paper";
@@ -50,6 +50,10 @@ const Home = ({
   const [tabSelected, setTabSelected] = useState("all");
   const [animated, setAnimated] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/blog");
+  }, [router]);
 
   if (!width) {
     return null;
@@ -101,7 +105,7 @@ const Home = ({
           key="avatar"
           className={cn(
             "bg-white dark:bg-darkBg border-2 border-transparent dark:border-knight cursor-grab active:cursor-grabbing rounded-[2rem] flex flex-col justify-between p-5 overflow-hidden z-[1]",
-            selectedCard[tabSelected]["avatar"] ? "opacity-100" : "opacity-50",
+            selectedCard[tabSelected]["avatar"] ? "opacity-100" : "opacity-50"
           )}
         >
           <AvatarTransition avatarUrl={avatarUrl} dogUrl={dogUrl} />
@@ -120,7 +124,7 @@ const Home = ({
             "bg-white dark:bg-darkBg border-2 border-transparent dark:border-knight cursor-grab active:cursor-grabbing rounded-[2rem] flex justify-center items-center z-[1]",
             selectedCard[tabSelected]["themeSwitch"]
               ? "opacity-100"
-              : "opacity-50",
+              : "opacity-50"
           )}
         >
           <ThemeSwitch />
@@ -131,7 +135,7 @@ const Home = ({
             "bg-white dark:bg-darkBg border-2 border-transparent dark:border-knight cursor-grab active:cursor-grabbing rounded-[2rem] flex justify-center items-center z-[2]",
             selectedCard[tabSelected]["cardStack"]
               ? "opacity-100"
-              : "opacity-50",
+              : "opacity-50"
           )}
         >
           <CardStack photos={photos} />
@@ -142,7 +146,7 @@ const Home = ({
             "bg-white dark:bg-darkBg border-2 border-transparent dark:border-knight cursor-grab active:cursor-grabbing rounded-[2rem] flex justify-center items-center z-[1]",
             selectedCard[tabSelected]["animatedEmoji"]
               ? "opacity-100"
-              : "opacity-50",
+              : "opacity-50"
           )}
         >
           <AnimatedEmoji />
@@ -153,7 +157,7 @@ const Home = ({
             "bg-white dark:bg-darkBg cursor-grab active:cursor-grabbing rounded-[2rem] flex justify-center items-center z-[1]",
             selectedCard[tabSelected]["mapComponent"]
               ? "opacity-100"
-              : "opacity-50",
+              : "opacity-50"
           )}
         >
           <MapComponent />
@@ -164,7 +168,7 @@ const Home = ({
             "bg-white dark:bg-darkBg border-2 border-transparent dark:border-knight cursor-grab active:cursor-grabbing rounded-[2rem] flex justify-center items-center relative overflow-hidden p-10 md:p-8 z-[1]",
             selectedCard[tabSelected]["iconCloud"]
               ? "opacity-100"
-              : "opacity-50",
+              : "opacity-50"
           )}
         >
           <IconCloud iconSlugs={icons} />
@@ -173,9 +177,7 @@ const Home = ({
           key="webAgent"
           className={cn(
             "bg-white dark:bg-darkBg dark:border-2 dark:border-knight cursor-grab active:cursor-grabbing rounded-[2rem] flex justify-center items-center overflow-hidden z-[1]",
-            selectedCard[tabSelected]["webAgent"]
-              ? "opacity-100"
-              : "opacity-50",
+            selectedCard[tabSelected]["webAgent"] ? "opacity-100" : "opacity-50"
           )}
         >
           <WebAgent webAgentUrl={webagentUrl} />
@@ -184,7 +186,7 @@ const Home = ({
           key="chatBot"
           className={cn(
             "bg-white dark:bg-darkBg dark:border-2 dark:border-knight cursor-grab active:cursor-grabbing rounded-[2rem] flex justify-center items-center overflow-hidden z-[1]",
-            selectedCard[tabSelected]["chatBot"] ? "opacity-100" : "opacity-50",
+            selectedCard[tabSelected]["chatBot"] ? "opacity-100" : "opacity-50"
           )}
         >
           <Chatbot chatbotUrl={chatbotUrl} />
@@ -195,7 +197,7 @@ const Home = ({
             "bg-white dark:bg-darkBg border-2 border-transparent dark:border-knight cursor-grab active:cursor-grabbing rounded-[2rem] flex justify-center items-center z-[1] overflow-hidden",
             selectedCard[tabSelected]["miniModel"]
               ? "opacity-100"
-              : "opacity-50",
+              : "opacity-50"
           )}
         >
           {animated ? <MiniModel /> : <MiniPic />}
@@ -209,7 +211,7 @@ const Home = ({
           key="actions"
           className={cn(
             "bg-white dark:bg-darkBg dark:border-2 dark:border-knight cursor-grab active:cursor-grabbing rounded-[2rem] flex justify-center items-center overflow-hidden z-[1]",
-            selectedCard[tabSelected]["actions"] ? "opacity-100" : "opacity-50",
+            selectedCard[tabSelected]["actions"] ? "opacity-100" : "opacity-50"
           )}
         >
           <Actions photoUrl={actionImageUrl} />
@@ -218,7 +220,7 @@ const Home = ({
           key="paper"
           className={cn(
             "bg-white dark:bg-darkBg dark:border-2 dark:border-knight cursor-grab active:cursor-grabbing rounded-[2rem] flex justify-center items-center z-[1] overflow-hidden",
-            selectedCard[tabSelected]["paper"] ? "opacity-100" : "opacity-50",
+            selectedCard[tabSelected]["paper"] ? "opacity-100" : "opacity-50"
           )}
         >
           <Paper paperUrl={paperUrl} />

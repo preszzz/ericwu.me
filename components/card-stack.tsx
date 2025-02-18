@@ -68,6 +68,7 @@ const CardStack: React.FC<CardStackProps> = ({ photos }) => {
             alt="Card image"
             className="object-cover w-[80%] mx-auto md:w-full rounded-2xl aspect-video"
             height={200}
+            quality={80}
             src={card.imageUrl}
             width={355}
           />

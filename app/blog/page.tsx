@@ -14,7 +14,7 @@ const Page = async () => {
   return (
     <div className="px-4 pb-10">
       <div className="flex flex-col items-center mb-4 gap-2">
-        <Link href="/">
+        <Link href="/" prefetch={true}>
           <Button
             isIconOnly
             className="dark:border-knight dark:bg-transparent dark:border-2 bg-[#ece7e7] border-0"

@@ -1,46 +1,39 @@
 import Home from "@/components/home";
-import { getPhotoUrl, listPhotos } from "@/firebase/db/photo";
+import { batchGetPhotoUrls, listPhotos } from "@/firebase/db/photo";
 
 export default async function App() {
-  const photosPromise = listPhotos("photos");
-  const avatarUrlPromise = getPhotoUrl("avatar/eric.jpg");
-  const dogUrlPromise = getPhotoUrl("avatar/dog.jpg");
-  const actionImageUrlPromise = getPhotoUrl("projects/actions.jpg");
-  const webagentUrlPromise = getPhotoUrl("projects/webagent.jpg");
-  const chatbotUrlPromise = getPhotoUrl("projects/chatbot.jpg");
-  const resumeUrlPromise = getPhotoUrl("Chengxiang-Wu-Resume-2024.pdf");
-  const paperUrlPromise = getPhotoUrl("projects/paper.jpg");
+  const paths = {
+    photos: "photos",
+    avatar: "avatar/eric.jpg",
+    dog: "avatar/dog.jpg",
+    action: "projects/actions.jpg",
+    webagent: "projects/webagent.jpg",
+    chatbot: "projects/chatbot.jpg",
+    resume: "Chengxiang-Wu-Resume-2024.pdf",
+    paper: "projects/paper.jpg",
+  };
 
-  const [
-    photos,
-    avatarUrl,
-    dogUrl,
-    actionImageUrl,
-    resumeUrl,
-    webagentUrl,
-    chatbotUrl,
-    paperUrl,
-  ] = await Promise.all([
-    photosPromise,
-    avatarUrlPromise,
-    dogUrlPromise,
-    actionImageUrlPromise,
-    resumeUrlPromise,
-    webagentUrlPromise,
-    chatbotUrlPromise,
-    paperUrlPromise,
+  const criticalPaths = [paths.avatar, paths.action];
+  const criticalUrls = await batchGetPhotoUrls(criticalPaths);
+
+  const remainingPaths = Object.values(paths).filter(
+    (path) => !criticalPaths.includes(path) && path !== paths.photos
+  );
+  const [photos, remainingUrls] = await Promise.all([
+    listPhotos(paths.photos),
+    batchGetPhotoUrls(remainingPaths),
   ]);
 
   return (
     <Home
-      actionImageUrl={actionImageUrl}
-      avatarUrl={avatarUrl}
-      chatbotUrl={chatbotUrl}
-      dogUrl={dogUrl}
-      paperUrl={paperUrl}
+      actionImageUrl={criticalUrls[paths.action]}
+      avatarUrl={criticalUrls[paths.avatar]}
+      chatbotUrl={remainingUrls[paths.chatbot]}
+      dogUrl={remainingUrls[paths.dog]}
+      paperUrl={remainingUrls[paths.paper]}
       photos={photos}
-      resumeUrl={resumeUrl}
-      webagentUrl={webagentUrl}
+      resumeUrl={remainingUrls[paths.resume]}
+      webagentUrl={remainingUrls[paths.webagent]}
     />
   );
 }

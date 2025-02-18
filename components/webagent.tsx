@@ -1,6 +1,7 @@
 import { Link } from "@nextui-org/react";
 import { GoArrowUpRight } from "react-icons/go";
 import Image from "next/image";
+
 interface WebAgentProps {
   webAgentUrl: string;
 }
@@ -12,11 +13,14 @@ const WebAgent = ({ webAgentUrl }: WebAgentProps) => {
 
       <div className="absolute top-1/2 -translate-y-1/2 left-24 md:left-32 transform -rotate-[30deg] rounded-2xl w-[80%]">
         <Image
-          alt="Web Agent"
+          priority
+          alt="Web Agent Interface Preview"
           className="w-full h-full object-contain rounded-2xl"
-          height={2380}
+          height={800}
+          loading="eager"
+          quality={75}
           src={webAgentUrl}
-          width={1164}
+          width={1000}
         />
       </div>
       <button className="absolute bg-white dark:bg-darkBg bottom-2 left-2 transition-all w-10 h-10 md:w-[2.75rem] md:h-[2.75rem] duration-500 ease-in-out group-hover:w-40 p-2 rounded-full hover:bg-default-100 border-2 border-transparent dark:border-knight">
@@ -26,7 +30,6 @@ const WebAgent = ({ webAgentUrl }: WebAgentProps) => {
               Web Agent
             </span>
           </Link>
-
           <GoArrowUpRight />
         </div>
       </button>

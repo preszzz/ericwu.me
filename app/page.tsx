@@ -1,7 +1,5 @@
 import Home from "@/components/home";
-import Loading from "@/components/loading";
 import { batchGetPhotoUrls, listPhotos } from "@/firebase/db/photo";
-import { Suspense } from "react";
 
 export default async function App() {
   const paths = {
@@ -27,17 +25,15 @@ export default async function App() {
   ]);
 
   return (
-    <Suspense fallback={<Loading />}>
-      <Home
-        actionImageUrl={criticalUrls[paths.action]}
-        avatarUrl={criticalUrls[paths.avatar]}
-        chatbotUrl={remainingUrls[paths.chatbot]}
-        dogUrl={remainingUrls[paths.dog]}
-        paperUrl={remainingUrls[paths.paper]}
-        photos={photos}
-        resumeUrl={remainingUrls[paths.resume]}
-        webagentUrl={remainingUrls[paths.webagent]}
-      />
-    </Suspense>
+    <Home
+      actionImageUrl={criticalUrls[paths.action]}
+      avatarUrl={criticalUrls[paths.avatar]}
+      chatbotUrl={remainingUrls[paths.chatbot]}
+      dogUrl={remainingUrls[paths.dog]}
+      paperUrl={remainingUrls[paths.paper]}
+      photos={photos}
+      resumeUrl={remainingUrls[paths.resume]}
+      webagentUrl={remainingUrls[paths.webagent]}
+    />
   );
 }

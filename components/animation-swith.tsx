@@ -6,6 +6,7 @@ import { FaMagic } from "react-icons/fa";
 import { FaImage } from "react-icons/fa6";
 
 import { cn } from "@/lib/utils";
+import { Tooltip } from "@nextui-org/react";
 
 export interface AnimationSwitchProps {
   className?: string;
@@ -25,15 +26,17 @@ export const AnimationSwitch: FC<AnimationSwitchProps> = ({
   return (
     <div className={cn(className)}>
       {!animated ? (
-        <Button
-          isIconOnly
-          className="dark:border-knight dark:bg-transparent dark:border-2 bg-midnight border-0"
-          radius="full"
-          variant="bordered"
-          onPress={onChange}
-        >
-          <FaMagic size={16} />
-        </Button>
+        <Tooltip content="Animate it!" placement="bottom">
+          <Button
+            isIconOnly
+            className="dark:border-knight dark:bg-transparent dark:border-2 bg-midnight border-0"
+            radius="full"
+            variant="bordered"
+            onPress={onChange}
+          >
+            <FaMagic size={16} />
+          </Button>
+        </Tooltip>
       ) : (
         <Button
           isIconOnly

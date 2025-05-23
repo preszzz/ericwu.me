@@ -2,7 +2,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import React, { PropsWithChildren, useRef } from "react";
-import { Link } from "@nextui-org/react";
+import { Link, Tooltip } from "@nextui-org/react";
 
 import { cn } from "@/lib/utils";
 
@@ -17,7 +17,7 @@ const DEFAULT_MAGNIFICATION = 60;
 const DEFAULT_DISTANCE = 140;
 
 const dockVariants = cva(
-  "mx-auto w-max h-[58px] p-2 flex items-end gap-2 rounded-2xl",
+  "mx-auto w-max h-[58px] p-2 flex items-end gap-2 rounded-2xl"
 );
 
 const Dock = React.forwardRef<HTMLDivElement, DockProps>(
@@ -29,7 +29,7 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
       distance = DEFAULT_DISTANCE,
       ...props
     },
-    ref,
+    ref
   ) => {
     const mouseX = useMotionValue(Infinity);
 
@@ -54,7 +54,7 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
         {renderChildren()}
       </motion.div>
     );
-  },
+  }
 );
 
 Dock.displayName = "Dock";
@@ -67,6 +67,7 @@ export interface DockIconProps {
   className?: string;
   children?: React.ReactNode;
   props?: PropsWithChildren;
+  tooltip?: string;
   url: string;
 }
 
@@ -77,6 +78,7 @@ const DockIcon = ({
   mouseX,
   className,
   children,
+  tooltip,
   url,
   ...props
 }: DockIconProps) => {
@@ -91,7 +93,7 @@ const DockIcon = ({
   let widthSync = useTransform(
     distanceCalc,
     [-distance, 0, distance],
-    [40, magnification, 40],
+    [40, magnification, 40]
   );
 
   let width = useSpring(widthSync, {
@@ -101,19 +103,21 @@ const DockIcon = ({
   });
 
   return (
-    <Link isExternal color="foreground" href={url}>
-      <motion.div
-        ref={ref}
-        className={cn(
-          "flex aspect-square cursor-pointer items-center justify-center rounded-full bg-midnight border-2 border-transparent dark:border-knight dark:bg-darkBg",
-          className,
-        )}
-        style={{ width }}
-        {...props}
-      >
-        {children}
-      </motion.div>
-    </Link>
+    <Tooltip content={tooltip} placement="bottom">
+      <Link isExternal color="foreground" href={url}>
+        <motion.div
+          ref={ref}
+          className={cn(
+            "flex aspect-square cursor-pointer items-center justify-center rounded-full bg-midnight border-2 border-transparent dark:border-knight dark:bg-darkBg",
+            className
+          )}
+          style={{ width }}
+          {...props}
+        >
+          {children}
+        </motion.div>
+      </Link>
+    </Tooltip>
   );
 };
 

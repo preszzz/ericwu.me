@@ -112,8 +112,9 @@ const Home = ({
           <p className="text-sm md:text-medium">
             Hey! I’m <span className="font-oleo text-2xl"> Eric</span>, a
             software engineer, hailing from UCLA and Purdue. Currently, I’m
-            building a cool marketing product. My world revolves around web
-            development. And yes, I have an adorable dog named Bert!
+            building a cool marketing AI agent. My world revolves around web
+            development, deep learning, and data science. And yes, I have an
+            adorable dog named Bert!
           </p>
           <DockDemo resumeUrl={resumeUrl} />
         </div>
